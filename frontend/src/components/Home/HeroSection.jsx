@@ -1,33 +1,44 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { FaBuilding, FaSuitcase, FaUsers, FaUserPlus } from "react-icons/fa";
+import axios from "axios";
 
 const HeroSection = () => {
-    const details = [
-        {
-            id: 1,
-            title: "1,23,441",
-            subTitle: "Trabajos disponibles",
-            icon: <FaSuitcase />,
-        },
-        {
-            id: 2,
-            title: "91220",
-            subTitle: "Empresas",
-            icon: <FaBuilding />,
-        },
-        {
-            id: 3,
-            title: "2,34,200",
-            subTitle: "Aspirantes",
-            icon: <FaUsers />,
-        },
-        {
-            id: 4,
-            title: "1,03,761",
-            subTitle: "Empleadores",
-            icon: <FaUserPlus />,
-        },
-    ];
+
+    const [numSolicitudes, setNumSolicitudes] = useState(0);
+    const [numAspirantes, setNumAspirantes] = useState(0);
+    const [numEmpleadores, setNumEmpleadores] = useState(0);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get(
+                    `${window.location.origin}/api/v1/user/getUsers`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                const empleados = response.data.users.filter(usuario => usuario.role === "Empleador");
+                const aspirantes = response.data.users.filter(usuario => usuario.role === "Aspirante");
+                setNumEmpleadores(empleados.length);
+                setNumAspirantes(aspirantes.length);
+            } catch (error) {
+                console.log("Error: ", error.message || error);
+            }
+        };
+        try {
+            axios
+                .get(`${window.location.origin}/api/v1/trabajo/getall`, {
+                    withCredentials: true,
+                })
+                .then((res) => {
+                    setNumSolicitudes(res.data.jobs.length);
+                });
+        } catch (error) {
+            console.log("Error: ", error.message || error);
+        }
+        fetchUser();
+    }, []);
+
     return (
         <>
             <div className="heroSection">
@@ -45,17 +56,27 @@ const HeroSection = () => {
                     </div>
                 </div>
                 <div className="details">
-                    {details.map((element) => {
-                        return (
-                            <div className="card" key={element.id}>
-                                <div className="icon">{element.icon}</div>
-                                <div className="content">
-                                    <p>{element.title}</p>
-                                    <p>{element.subTitle}</p>
-                                </div>
-                            </div>
-                        );
-                    })}
+                    <div className="card">
+                        <div className="icon"><FaSuitcase /></div>
+                        <div className="content">
+                            <p>{numSolicitudes}</p>
+                            <p>Trabajos disponibles</p>
+                        </div>
+                    </div>
+                    <div className="card">
+                        <div className="icon"><FaUsers /></div>
+                        <div className="content">
+                            <p>{numAspirantes}</p>
+                            <p>Aspirantes</p>
+                        </div>
+                    </div>
+                    <div className="card">
+                        <div className="icon"><FaUserPlus /></div>
+                        <div className="content">
+                            <p>{numEmpleadores}</p>
+                            <p>Empleadores</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

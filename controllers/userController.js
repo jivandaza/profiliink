@@ -2,6 +2,7 @@ import { catchAsyncErrors } from "../middlewares/catchAsyncError.js";
 import { User } from "../models/userModel.js";
 import ErrorHandler from "../middlewares/error.js";
 import { sendToken } from "../utils/jwtToken.js";
+import {Job} from "../models/jobModel.js";
 
 export const register = catchAsyncErrors(async (req, res, next) => {
     const { name, email, phone, password, role } = req.body;
@@ -56,11 +57,18 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
         });
 });
 
-
 export const getUser = catchAsyncErrors((req, res, next) => {
     const user = req.user;
     res.status(200).json({
         success: true,
         user,
+    });
+});
+
+export const getUsers = catchAsyncErrors(async (req, res, next) => {
+    const users = await User.find();
+    res.status(200).json({
+        success: true,
+        users,
     });
 });
