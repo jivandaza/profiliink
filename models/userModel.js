@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
         maxLength: [32, "La contraseña no puede exceder los 32 caracteres!"],
         select: false,
     },
+    habilidad: {
+        type: Number,
+        required: [false, "Por favor, seleccione una habilidad."],
+    },
     role: {
         type: String,
         required: [true, "Por favor, seleccione un rol."],

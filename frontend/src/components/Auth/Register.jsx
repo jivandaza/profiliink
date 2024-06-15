@@ -4,6 +4,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
 import { FaPencilAlt } from "react-icons/fa";
 import { FaPhoneFlip } from "react-icons/fa6";
+import { GiSkills } from "react-icons/gi";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -13,6 +14,7 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
+    const [habilidad, setHabilidad] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("");
 
@@ -23,7 +25,7 @@ const Register = () => {
         try {
             const { data } = await axios.post(
                 `${window.location.origin}/api/v1/user/register`,
-                { name, phone, email, role, password },
+                { name, phone, email, role, habilidad: parseInt(habilidad), password },
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -36,6 +38,7 @@ const Register = () => {
             setEmail("");
             setPassword("");
             setPhone("");
+            setHabilidad("");
             setRole("");
             setIsAuthorized(true);
         } catch (error) {
@@ -103,6 +106,44 @@ const Register = () => {
                                 <FaPhoneFlip />
                             </div>
                         </div>
+                        {
+                            role === "Aspirante" && (
+                                <div className="inputTag">
+                                    <label>Seleccionar habilidad</label>
+                                    <div>
+                                        <select
+                                            value={habilidad}
+                                            onChange={(e) => setHabilidad(e.target.value)}
+                                        >
+                                            <option value="">Seleccionar habilidad</option>
+                                            <option value="1">Diseño gráfico</option>
+                                            <option value={"2"}>
+                                                Desarrollo de aplicaciones móviles
+                                            </option>
+                                            <option value={"3"}>
+                                                Desarrollo web front-end
+                                            </option>
+                                            <option value={"4"}>
+                                                Desarrollador web back-end
+                                            </option>
+                                            <option value={"5"}>Cuenta y Finanzas</option>
+                                            <option value={"6"}>
+                                                Inteligencia artificial
+                                            </option>
+                                            <option value={"7"}>Animación de vídeo</option>
+                                            <option value={"8"}>
+                                                Desarrollador web grafico
+                                            </option>
+                                            <option value={"9"}>
+                                                Desarrollador web full-stack
+                                            </option>
+                                            <option value={"10"}>Operador de entrada de datos</option>
+                                        </select>
+                                        <GiSkills />
+                                    </div>
+                                </div>
+                            )
+                        }
                         <div className="inputTag">
                             <label>Contraseña</label>
                             <div>

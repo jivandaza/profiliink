@@ -148,9 +148,9 @@ const MyJobs = () => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <span>Categoría:</span>
+                                                    <span>Habilidad:</span>
                                                     <select
-                                                        value={element.category}
+                                                        value={element.habilidad.toString()}
                                                         onChange={(e) =>
                                                             handleInputChange(
                                                                 element._id,
@@ -162,34 +162,34 @@ const MyJobs = () => {
                                                             editingMode !== element._id ? true : false
                                                         }
                                                     >
-                                                        <option value="Diseño gráfico">
+                                                        <option value="1">
                                                             Diseño gráfico
                                                         </option>
-                                                        <option value="Desarrollo de aplicaciones móviles">
+                                                        <option value="2">
                                                             Desarrollo de aplicaciones móviles
                                                         </option>
-                                                        <option value="Desarrollador web front-end">
+                                                        <option value="3">
                                                             Desarrollador web front-end
                                                         </option>
-                                                        <option value="Desarrollador web back-end">
+                                                        <option value="4">
                                                             Desarrollador web back-end
                                                         </option>
-                                                        <option value="Cuenta y Finanzas">
+                                                        <option value="5">
                                                             Cuenta y Finanzas
                                                         </option>
-                                                        <option value="Inteligencia artificial">
+                                                        <option value="6">
                                                             Inteligencia artificial
                                                         </option>
-                                                        <option value="Animación de vídeo">
+                                                        <option value="7">
                                                             Animación de vídeo
                                                         </option>
-                                                        <option value="Desarrollador web grafico">
+                                                        <option value="8">
                                                             Desarrollador web grafico
                                                         </option>
-                                                        <option value="Desarrollador web full-stack">
+                                                        <option value="9">
                                                             Desarrollador web full-stack
                                                         </option>
-                                                        <option value="Operador de entrada de datos">
+                                                        <option value="10">
                                                             Operador de entrada de datos
                                                         </option>
                                                     </select>
